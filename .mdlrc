@@ -1,0 +1,2 @@
+verbose true
+style "#{File.dirname(__FILE__)}/mdl_style.rb"
