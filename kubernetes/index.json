@@ -42,8 +42,13 @@
     }
   },
   "environment": {
-    "uilayout": "editor-terminal"
-  },
+    "uilayout": "terminal",
+      "showdashboard": true,
+      "dashboards": [
+        {"name": "Parca", "port": 7070},
+        {"name": "Parca Agent", "port": 7071}
+      ]
+    },
   "backend": {
     "imageid": "minikube"
   }
