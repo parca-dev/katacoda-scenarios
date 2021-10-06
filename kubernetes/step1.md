@@ -3,7 +3,7 @@
 To quickly try out the Parca and Parca Agent with Kubernetes, you create a [minikube](https://minikube.sigs.k8s.io/docs/) cluster with an actual virtual machine, e.g. Virtualbox:
 
 ```
-minikube start --driver=virtualbox
+minikube start
 ```{{execute}}
 
 > The Agent needs to access to Kernel and run as a privileged user to load necessary eBPF programs. Please check [our FAQ for further information](/docs/faq#since-parca-agent-has-to-run-as-root-for-ebpf-what-are-the-security-considerations).
@@ -23,12 +23,12 @@ kubectl get pods -A
 
 To view the Parca UI and access the API, we can port-forward using the default port `7070`:
 ```
-kubectl -n parca port-forward service/parca 7070
+kubectl -n parca port-forward service/parca 7070 &
 ```{{execute}}
 
 Once the Parca is running, and you set up the port-forwarding. Now you can navigate through to the web interface on the browser by visiting visit `http://localhost:7070`.
 
-[Parca Agent](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
+[Parca Server](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
 
 However, at this stage, you shouldn't see any data. Parca hasn't ingested any data because we haven't configured any data source.
 
@@ -48,7 +48,7 @@ kubectl get pods -n parca
 
 Let's setup a port-forward using the default port `7071`.
 ```
-kubectl -n parca port-forward `kubectl -n parca get pod -lapp.kubernetes.io/name=parca-agent -ojsonpath="{.items[0].metadata.name}"` 7071
+kubectl -n parca port-forward `kubectl -n parca get pod -lapp.kubernetes.io/name=parca-agent -ojsonpath="{.items[0].metadata.name}"` 7071 &
 ```{{execute}}
 
 Now we can view the active profilers by visiting `http://localhost:7071`:
@@ -81,7 +81,6 @@ So out of the box you should be seeing all the system containers running on the 
 If you go to query bar and enter `namespace="kube-system"` you can focus on them.
 
 And you can click the samples on the graph to focus on the individual profiles.
-
 
 ### Kubernetes label selector for specific apps
 
