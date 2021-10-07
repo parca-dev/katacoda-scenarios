@@ -17,16 +17,19 @@ kubectl create namespace parca
 ```{{execute}}
 
 To provision the Parca against any Kubernetes cluster, and use the API and UI:
+
 ```
 kubectl apply -f https://github.com/parca-dev/parca/releases/download/v0.1.0-alpha/manifest.yaml
 ```{{execute}}
 
 You can verify by selecting pods if everything runs as expected:
+
 ```
 kubectl get pods -A
 ```{{execute}}
 
 To view the Parca UI and access the API, we can port-forward using the default port `7070`:
+
 ```
 kubectl -n parca port-forward service/parca 7070 &
 ```{{execute}}
@@ -42,16 +45,19 @@ So let's set up Parca Agent in our cluster and collect data from our cluster.
 ## Setting up Parca Agent
 
 To provision the Parca Agent as a `DaemonSet`:
+
 ```
 kubectl apply -f https://github.com/parca-dev/parca-agent/releases/download/v0.1.0-alpha/kubernetes-manifest.yaml
 ```{{execute}}
 
 You can verify by selecting pods if everything runs as expected:
+
 ```
 kubectl get pods -n parca
 ```{{execute}}
 
 Let's setup a port-forward using the default port `7071`.
+
 ```
 kubectl -n parca port-forward `kubectl -n parca get pod -lapp.kubernetes.io/name=parca-agent -ojsonpath="{.items[0].metadata.name}"` 7071 &
 ```{{execute}}
@@ -66,7 +72,8 @@ This has already been set up for our current setup in the previously applied man
 
 
 > You can use `--insecure` and `--insecure-skip-verify` for simpler setups.
-``` shell
+
+```
 --insecure                           Send gRPC requests via plaintext instead of TLS.
 --insecure-skip-verify               Skip TLS certificate verification.
 ```
@@ -87,12 +94,13 @@ If you go to query bar and enter `namespace="kube-system"` you can focus on them
 
 And you can click the samples on the graph to focus on the individual profiles.
 
-### Kubernetes label selector for specific apps
+## Kubernetes label selector for specific apps
 
 To further sample targets on Kubernetes use the `--pod-label-selector=` flag.
 For example, to only profile Pods with the `app.kubernetes.io/name=my-web-app` label, use `--pod-label-selector=app.kubernetes.io/name=my-web-app`.
 
 The relevant manifest changes on `parca-agent-daemonSet.yaml` would like the following:
+
 ```diff
 ...
 template:
