@@ -8,7 +8,7 @@ minikube start
 
 > The Agent needs to access to Kernel and run as a privileged user to load necessary eBPF programs. Please check [our FAQ for further information](/docs/faq#since-parca-agent-has-to-run-as-root-for-ebpf-what-are-the-security-considerations).
 
-First, let's make sure we have the namespace we are going to use is created (if you haven't already done this in the previous step):
+First, let's make sure we have the namespace we are going to use is created:
 
 ```
 kubectl create namespace parca
