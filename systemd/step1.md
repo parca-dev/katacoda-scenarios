@@ -18,6 +18,16 @@ mv ./parca /usr/bin
 
 > `/usr/bin` was selected as an example and used in the subsequent sections of this tutorial.
 
+Let's install external dependencies:
+```
+apt-get install llvm binutils elfutils
+```{{execute}}
+
+And create additional necessary directories:
+```
+mkdir -p /tmp
+```{{execute}}
+
 Parca runs with an example configuration file by default, that makes Parca to scrape itself.
 
 <pre class="file" data-filename="parca.yaml" data-target="replace">
@@ -25,11 +35,11 @@ debug_info:
   bucket:
     type: "FILESYSTEM"
     config:
-      directory: "./tmp"
+      directory: "/tmp"
   cache:
     type: "FILESYSTEM"
     config:
-      directory: "./tmp"
+      directory: "/tmp"
 
 scrape_configs:
   - job_name: "default"
@@ -41,6 +51,12 @@ scrape_configs:
 ```
 mkdir -p /etc/parca && cp editor/parca.yaml /etc/parca/parca.yaml
 ```{{execute}}
+
+And let's create a user for Parca:
+```
+adduser --system --no-create-home --group parca
+```{{execute}}
+
 
 Now you can run the Parca as a `systemd` unit with the following simple configuration:
 
@@ -70,7 +86,9 @@ RestrictRealtime=yes
 RestrictNamespaces=yes
 MemoryDenyWriteExecute=yes
 PrivateDevices=yes
-CapabilityBoundingSet=
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=parca
 
 [Install]
 WantedBy=multi-user.target
