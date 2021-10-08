@@ -1,6 +1,6 @@
 {
-  "title": "Getting started with Parca and Parca Agent on Kubernetes",
-  "description": "Try Parca and Parca Agent to profile your workloads on Kubernetes",
+  "title": "Getting started with Parca and Parca Agent using systemd",
+  "description": "Try Parca and Parca Agent to profile your workloads using systemd",
   "difficulty": "Beginner",
   "time": "15 min",
   "details": {

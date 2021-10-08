@@ -2,7 +2,7 @@
 
 Congratulations! 🎉🎉🎉
 
-You completed our scraping tutorial!
+You completed our systemd tutorial!
 
 ## Feedback
 
