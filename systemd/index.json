@@ -32,7 +32,6 @@
     "uilayout": "editor-terminal",
       "showdashboard": true,
       "dashboards": [
-        {"name": "Parca Agent", "port": 7071},
         {"name": "Parca", "port": 7070}
       ]
     },

@@ -1,6 +1,6 @@
-Let's configure Parca to scrape itself.
+Let's update the configuration file for Parca to scrape itself.
 
-<pre class="file" data-filename="parca.yml" data-target="replace">
+<pre class="file" data-filename="parca.yaml" data-target="replace">
 debug_info:
   bucket:
     type: "FILESYSTEM"
@@ -18,11 +18,19 @@ scrape_configs:
       - targets: [ '127.0.0.1:7070' ]
 </pre>
 
+Now Parca has an updated configuration file and previously we configured it using a configmap.
 Let's overwrite the configmap with our new configuration file:
 
 ```
+kubectl create configmap -n parca parca-config --from-file=parca.yaml=editor/parca.yaml -o yaml --dry-run  | kubectl apply -f -
 ```{{execute}}
 
-Once the Parca is running, and you set up the port-forwarding. Now you can navigate through to the web interface on the browser by visiting visit `http://localhost:7070`.
+Once the configuration is updated, now we can rollout our changes to our running instances:
+
+```
+kubectl rollout restart deployment/parca -n parca
+```{{execute}}
+
+Now you can navigate through to the web interface on the browser by visiting visit `http://localhost:7070`.
 
 [Go to Parca Server Dashboard](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
