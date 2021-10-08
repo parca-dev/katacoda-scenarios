@@ -27,7 +27,7 @@ Type=simple
 User=root
 Group=root
 
-ExecStart=/usr/bin/parca-agent --http-address=":7071" --node=systemd-test --systemd-units=docker.service,parca.service,parca-agent.service --kubernetes=false --store-address=localhost:7070 --insecure
+ExecStart=/usr/bin/parca-agent --http-address=":7071" --node=systemd-test --systemd-units=parca.service,parca-agent.service --kubernetes=false --store-address=localhost:7070 --insecure
 
 Restart=on-failure
 RestartSec=10
@@ -47,6 +47,11 @@ To use the configuration, we need to move it a directory that `systemd` can load
 cp editor/parca-agent.service /etc/systemd/system/parca-agent.service
 ```{{execute}}
 
+Reload daemon:
+```
+systemctl daemon-reload
+```{{execute}}
+
 And then simply start the unit:
 ```
 systemctl start parca-agent
@@ -54,9 +59,13 @@ systemctl start parca-agent
 
 Check the status if it's healthy:
 ```
-systemctl status parca
+systemctl status parca-agent
 ```{{execute}}
 
 The `systemd` service will be collecting profiles from `docker.service`, `parca.service` and `parca-agent.service` that have been running on your system.
+
+Now you can navigate through to the web interface on the browser by visiting visit `http://localhost:7070`.
+
+[Go to Parca Server Dashboard](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
 
 Once Parca and Parca Agent are both running, you can navigate to the web interface on the browser. Let's do that.

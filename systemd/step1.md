@@ -39,7 +39,7 @@ scrape_configs:
 </pre>
 
 ```
-cp editor/parca.yaml /etc/parca/parca.yaml
+mkdir -p /etc/parca && cp editor/parca.yaml /etc/parca/parca.yaml
 ```{{execute}}
 
 Now you can run the Parca as a `systemd` unit with the following simple configuration:
@@ -54,6 +54,7 @@ After=network-online.target
 User=parca
 Group=parca
 Restart=on-failure
+RestartSec=10
 ExecStart=/usr/bin/parca --config-path=/etc/parca/parca.yaml
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65535
@@ -79,6 +80,11 @@ To use the configuration, we need to move it a directory that `systemd` can load
 
 ```
 cp editor/parca.service /etc/systemd/system/parca.service
+```{{execute}}
+
+Reload daemon:
+```
+systemctl daemon-reload
 ```{{execute}}
 
 And then simply start the unit:
