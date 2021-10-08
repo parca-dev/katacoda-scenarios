@@ -1,4 +1,6 @@
-To quickly try out the Parca and Parca Agent with Kubernetes, you create a [minikube](https://minikube.sigs.k8s.io/docs/) cluster with an actual virtual machine, e.g. Virtualbox. Since the minikube already installed our environment, let's start our environment:
+To quickly try out the Parca and Parca Agent with Kubernetes,
+you create a [minikube](https://minikube.sigs.k8s.io/docs/) cluster with an actual virtual machine,
+e.g. Virtualbox. Since the minikube already installed our environment, let's start our environment:
 
 ```
 minikube start
