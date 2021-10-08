@@ -1,5 +1,3 @@
-# Let's setup our cluster
-
 To quickly try out the Parca and Parca Agent with Kubernetes, you create a [minikube](https://minikube.sigs.k8s.io/docs/) cluster with an actual virtual machine, e.g. Virtualbox. Since the minikube already installed our environment, let's start our environment:
 
 ```
@@ -16,10 +14,16 @@ First, let's make sure we have the namespace we are going to use is created (if 
 kubectl create namespace parca
 ```{{execute}}
 
+And fetch the latest Parca version:
+
+```
+PARCA_AGENT_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca-agent/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+``````{{execute}}
+
 To provision the Parca Agent as a `DaemonSet`:
 
 ```
-kubectl apply -f https://github.com/parca-dev/parca-agent/releases/download/v0.1.0-alpha/kubernetes-manifest.yaml
+kubectl apply -f https://github.com/parca-dev/parca-agent/releases/download/$PARCA_AGENT_VERSION/kubernetes-manifest.yaml
 ```{{execute}}
 
 You can verify by selecting pods if everything runs as expected:

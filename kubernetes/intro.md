@@ -6,4 +6,4 @@ Continuous profiling is the act of taking profiles (such as CPU, Memory, I/O and
 
 To find out more visit our [website](https://www.parca.dev/docs/overview)!
 
-Now let's jump into action !!!
+Now let's jump into action 🚀🚀🚀

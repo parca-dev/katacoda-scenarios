@@ -1,5 +1,3 @@
-# Exploring the collected data
-
 Once Parca and Parca Agent are both running, you can navigate to the web interface on the browser.
 You should shortly see the `Select profile...` dropdown menu populate with the profiles that Parca is retrieving from itself and receiving from the Agent.
 

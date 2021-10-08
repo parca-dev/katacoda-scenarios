@@ -6,15 +6,15 @@
   "details": {
     "steps": [
       {
-        "title": "`Setup` Parca Agent",
+        "title": "Setting up Parca Agent",
         "text": "step1.md"
       },
       {
-        "title": "Setup Parca",
+        "title": "Setting up Parca",
         "text": "step2.md"
       },
       {
-        "title": "Explore the Data",
+        "title": "Exploring the collected data",
         "text": "step3.md"
       }
     ],
