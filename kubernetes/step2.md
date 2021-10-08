@@ -16,7 +16,7 @@ You can verify by selecting pods if everything runs as expected:
 kubectl get pods -n parca
 ```{{execute}}
 
-When you see it's running, you can continue.
+When you see it's ready, you can continue.
 
 Now let's setup a port-forward using the default port `7071`.
 

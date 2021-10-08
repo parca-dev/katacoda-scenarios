@@ -1,31 +1,9 @@
-Let's get started by logging in to OpenShift cluster.
-
-Enter the following into the console:
-
-`oc login -u developer`{{execute}}
-
-When prompted, enter the following password:
-
-**Password:** `developer`{{execute}}
-
-Next, you can check if it was successful:
-
-`oc whoami`{{execute}}
-
-`oc whoami` should return a response of:
-
-`developer`
-
-That's it!
-
-## Setting up Parca Server
-
 Start by creating a project for Parca components to run in.
 
-```shell
+```
 oc new-project parca \
     --description="Parca Continuous Profiling" --display-name="Parca Continuous Profiling"
-```
+```{{execute}}
 
 > The Agent needs to access to Kernel and run as a privileged user to load necessary eBPF programs. Please check [our FAQ for further information](/docs/faq#since-parca-agent-has-to-run-as-root-for-ebpf-what-are-the-security-considerations).
 
@@ -47,7 +25,7 @@ You can verify by selecting pods if everything runs as expected:
 oc get pods -n parca
 ```{{execute}}
 
-When you see it's running, you can continue.
+When you see it's ready, you can continue.
 
 To view the Parca UI and access the API, we can port-forward using the default port `7070`:
 
