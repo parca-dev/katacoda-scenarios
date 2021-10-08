@@ -12,16 +12,16 @@ First, let's make sure we have the namespace we are going to use is created (if 
 kubectl create namespace parca
 ```{{execute}}
 
-And fetch the latest Parca Agent version:
+Let's fetch the latest Parca version:
 
 ```
-PARCA_AGENT_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca-agent/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+PARCA_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 ```{{execute}}
 
-To provision the Parca Agent as a `DaemonSet`:
+To provision the Parca against any Kubernetes cluster, and use the API and UI:
 
 ```
-kubectl apply -f https://github.com/parca-dev/parca-agent/releases/download/$PARCA_AGENT_VERSION/kubernetes-manifest.yaml
+kubectl apply -f https://github.com/parca-dev/parca/releases/download/$PARCA_VERSION/kubernetes-manifest.yaml
 ```{{execute}}
 
 You can verify by selecting pods if everything runs as expected:
@@ -30,16 +30,18 @@ You can verify by selecting pods if everything runs as expected:
 kubectl get pods -n parca
 ```{{execute}}
 
-Let's setup a port-forward using the default port `7071`.
+When you see it's running, you can continue.
+
+To view the Parca UI and access the API, we can port-forward using the default port `7070`:
 
 ```
-kubectl -n parca port-forward --address=0.0.0.0 `kubectl -n parca get pod -lapp.kubernetes.io/name=parca-agent -ojsonpath="{.items[0].metadata.name}"`:7071 > /dev/null 2>&1 &
+kubectl -n parca port-forward --address=0.0.0.0 service/parca 7070:7070 > /dev/null 2>&1 &
 ```{{execute}}
 
-Now we can view the active profilers by visiting `http://localhost:7071`:
+Once the Parca is running, and you set up the port-forwarding. Now you can navigate through to the web interface on the browser by visiting visit `http://localhost:7070`.
 
-[Go to Parca Agent Dashboard](https://[[HOST_SUBDOMAIN]]-7071-[[KATACODA_HOST]].environments.katacoda.com/)
+[Go to Parca Server Dashboard](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
 
-This is similar to what you should be seeing:
+However, at this stage, you shouldn't see any data. Parca hasn't ingested any data because we haven't configured any data source.
 
-![image](./assets/active_profilers.png)
+So let's set up Parca Agent in our cluster and collect data from our cluster.

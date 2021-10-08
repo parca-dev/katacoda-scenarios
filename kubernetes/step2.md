@@ -1,13 +1,13 @@
-Let's fetch the latest Parca version:
+And fetch the latest Parca Agent version:
 
 ```
-PARCA_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+PARCA_AGENT_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca-agent/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 ```{{execute}}
 
-To provision the Parca against any Kubernetes cluster, and use the API and UI:
+To provision the Parca Agent as a `DaemonSet`:
 
 ```
-kubectl apply -f https://github.com/parca-dev/parca/releases/download/$PARCA_VERSION/kubernetes-manifest.yaml
+kubectl apply -f https://github.com/parca-dev/parca-agent/releases/download/$PARCA_AGENT_VERSION/kubernetes-manifest.yaml
 ```{{execute}}
 
 You can verify by selecting pods if everything runs as expected:
@@ -16,23 +16,27 @@ You can verify by selecting pods if everything runs as expected:
 kubectl get pods -n parca
 ```{{execute}}
 
-To view the Parca UI and access the API, we can port-forward using the default port `7070`:
+When you see it's running, you can continue.
+
+Now let's setup a port-forward using the default port `7071`.
 
 ```
-kubectl -n parca port-forward --address=0.0.0.0 service/parca 7070:7070 > /dev/null 2>&1 &
+kubectl -n parca port-forward --address=0.0.0.0 `kubectl -n parca get pod -lapp.kubernetes.io/name=parca-agent -ojsonpath="{.items[0].metadata.name}"`:7071 > /dev/null 2>&1 &
 ```{{execute}}
 
-Once the Parca is running, and you set up the port-forwarding. Now you can navigate through to the web interface on the browser by visiting visit `http://localhost:7070`.
+Now we can view the active profilers by visiting `http://localhost:7071`:
 
-[Go to Parca Server Dashboard](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
+[Go to Parca Agent Dashboard](https://[[HOST_SUBDOMAIN]]-7071-[[KATACODA_HOST]].environments.katacoda.com/)
+
+This is similar to what you should be seeing:
+
+![image](./assets/active_profilers.png)
 
 ## Configuring Parca Agent to send data
 
-However, at this stage, you shouldn't see any data. Parca hasn't ingested any data because we haven't configured any data source.
-
 To continuously send every profile collected to a Parca server the configure the `--store-address` and the potential credentials needed.
 
-For example, to send to a Parca server in the `parca` namespace set: `--store-address=parca.parca.svc:7070`.
+For example, to send data to a Parca server in the `parca` namespace we have set the following: `--store-address=parca.parca.svc:7070`.
 
 This has already been set up for our current setup in the previously applied manifests.
 
@@ -49,9 +53,11 @@ containers:
     - --temp-dir=/tmp
 ```
 
-> You can use `--insecure` and `--insecure-skip-verify` for simpler setups.
+> TIP: You can use `--insecure` and `--insecure-skip-verify` for simpler setups.
 
 ```shell
 --insecure                           Send gRPC requests via plaintext instead of TLS.
 --insecure-skip-verify               Skip TLS certificate verification.
 ```
+
+Once Parca and Parca Agent are both running, you can navigate to the web interface on the browser. Let's do that.

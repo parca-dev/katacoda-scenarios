@@ -1,16 +1,16 @@
 {
-  "title": "Getting started with Kubernetes",
-  "description": "",
+  "title": "Getting started with Parca and Parca Agent on Kubernetes",
+  "description": "Try Parca and Parca Agent to profile your workloads on Kubernetes",
   "difficulty": "Beginner",
-  "time": "30",
+  "time": "15",
   "details": {
     "steps": [
       {
-        "title": "Setting up Parca Agent",
+        "title": "Setting up Parca",
         "text": "step1.md"
       },
       {
-        "title": "Setting up Parca",
+        "title": "Setting up Parca Agent",
         "text": "step2.md"
       },
       {
