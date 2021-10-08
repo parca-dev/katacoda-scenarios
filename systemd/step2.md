@@ -52,6 +52,11 @@ And then simply start the unit:
 systemctl start parca-agent
 ```{{execute}}
 
+Check the status if it's healthy:
+```
+systemctl status parca
+```{{execute}}
+
 The `systemd` service will be collecting profiles from `docker.service`, `parca.service` and `parca-agent.service` that have been running on your system.
 
 Once Parca and Parca Agent are both running, you can navigate to the web interface on the browser. Let's do that.

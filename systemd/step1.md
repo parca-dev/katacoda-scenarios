@@ -18,6 +18,29 @@ mv ./parca /usr/bin
 
 > `/usr/bin` was selected as an example and used in the subsequent sections of this tutorial.
 
+Parca runs with an example configuration file by default, that makes Parca to scrape itself.
+
+<pre class="file" data-filename="parca.yaml" data-target="replace">
+debug_info:
+  bucket:
+    type: "FILESYSTEM"
+    config:
+      directory: "./tmp"
+  cache:
+    type: "FILESYSTEM"
+    config:
+      directory: "./tmp"
+
+scrape_configs:
+  - job_name: "default"
+    scrape_interval: "1s"
+    static_configs:
+      - targets: ["127.0.0.1:7070"]
+</pre>
+
+```
+cp editor/parca.yaml /etc/parca/parca.yaml
+```{{execute}}
 
 Now you can run the Parca as a `systemd` unit with the following simple configuration:
 
@@ -63,27 +86,12 @@ And then simply start the unit:
 systemctl start parca
 ```{{execute}}
 
-Parca runs with an example configuration file by default, that makes Parca to scrape itself.
-
-```yaml
-debug_info:
-  bucket:
-    type: "FILESYSTEM"
-    config:
-      directory: "./tmp"
-  cache:
-    type: "FILESYSTEM"
-    config:
-      directory: "./tmp"
-
-scrape_configs:
-  - job_name: "default"
-    scrape_interval: "1s"
-    static_configs:
-      - targets: ["127.0.0.1:7070"]
+Check the status if it's healthy:
 ```
+systemctl status parca
+```{{execute}}
 
-This will start the Parca server on port `7070` and configure it to retrieve profiles from itself every 1 second automatically.
+Parca server started on port `7070` and configured to retrieve profiles from itself every 1 second automatically.
 
 [Go to Parca Server Dashboard](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
 
