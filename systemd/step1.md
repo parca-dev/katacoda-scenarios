@@ -7,7 +7,7 @@ PARCA_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca/releases/lat
 You can download the latest binary release for your architecture from our [releases page](https://github.com/parca-dev/parca/releases).
 
 ```
-curl -sL https://github.com/parca-dev/parca/releases/download/"$PARCA_VERSION"/parca_"$PARCA_VERSION"_`uname -s`_`uname -m`.tar.gz | tar xvfz
+curl -sL https://github.com/parca-dev/parca/releases/download/"$PARCA_VERSION"/parca_"${PARCA_VERSION#v}"_`uname -s`_`uname -m`.tar.gz | tar xvfz
 ```{{execute}}
 
 Move the binary to a place where we can refer:
