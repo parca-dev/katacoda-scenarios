@@ -7,10 +7,11 @@ PARCA_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca/releases/lat
 You can download the latest binary release for your architecture from our [releases page](https://github.com/parca-dev/parca/releases).
 
 ```
-curl -sL https://github.com/parca-dev/parca/releases/download/"$PARCA_VERSION"/parca_"${PARCA_VERSION#v}"_`uname -s`_`uname -m`.tar.gz | tar xvfz
+curl -sL https://github.com/parca-dev/parca/releases/download/"$PARCA_VERSION"/parca_"${PARCA_VERSION#v}"_`uname -s`_`uname -m`.tar.gz | tar xvfz -
 ```{{execute}}
 
 Move the binary to a place where we can refer:
+
 ```
 mv ./parca /usr/bin
 ```{{execute}}
@@ -19,7 +20,8 @@ mv ./parca /usr/bin
 
 
 Now you can run the Parca as a `systemd` unit with the following simple configuration:
-<pre class="file" data-filename="parca,service" data-target="replace">
+
+<pre class="file" data-filename="parca.service" data-target="replace">
 [Unit]
 Description=Parca service
 Requires=network-online.target
