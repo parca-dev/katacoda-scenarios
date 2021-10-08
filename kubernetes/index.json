@@ -31,8 +31,8 @@
     "uilayout": "terminal",
       "showdashboard": true,
       "dashboards": [
-        {"name": "Parca", "port": 7070},
-        {"name": "Parca Agent", "port": 7071}
+        {"name": "Parca Agent", "port": 7071},
+        {"name": "Parca", "port": 7070}
       ]
     },
   "backend": {

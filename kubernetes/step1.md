@@ -6,19 +6,17 @@ minikube start
 
 > The Agent needs to access to Kernel and run as a privileged user to load necessary eBPF programs. Please check [our FAQ for further information](/docs/faq#since-parca-agent-has-to-run-as-root-for-ebpf-what-are-the-security-considerations).
 
-## Setting up Parca Agent
-
 First, let's make sure we have the namespace we are going to use is created (if you haven't already done this in the previous step):
 
 ```
 kubectl create namespace parca
 ```{{execute}}
 
-And fetch the latest Parca version:
+And fetch the latest Parca Agent version:
 
 ```
 PARCA_AGENT_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca-agent/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
-``````{{execute}}
+```{{execute}}
 
 To provision the Parca Agent as a `DaemonSet`:
 
@@ -35,12 +33,12 @@ kubectl get pods -n parca
 Let's setup a port-forward using the default port `7071`.
 
 ```
-kubectl -n parca port-forward `kubectl -n parca get pod -lapp.kubernetes.io/name=parca-agent -ojsonpath="{.items[0].metadata.name}"` 7071 &
+kubectl -n parca port-forward --address=0.0.0.0 `kubectl -n parca get pod -lapp.kubernetes.io/name=parca-agent -ojsonpath="{.items[0].metadata.name}"`:7071 > /dev/null 2>&1 &
 ```{{execute}}
 
 Now we can view the active profilers by visiting `http://localhost:7071`:
 
-[Parca Agent](https://[[HOST_SUBDOMAIN]]-7071-[[KATACODA_HOST]].environments.katacoda.com/)
+[Go to Parca Agent Dashboard](https://[[HOST_SUBDOMAIN]]-7071-[[KATACODA_HOST]].environments.katacoda.com/)
 
 This is similar to what you should be seeing:
 

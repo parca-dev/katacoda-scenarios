@@ -1,13 +1,13 @@
-And fetch the latest Parca version:
+Let's fetch the latest Parca version:
 
 ```
 PARCA_VERSION=`curl -s https://api.github.com/repos/parca-dev/parca/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
-``````{{execute}}
+```{{execute}}
 
 To provision the Parca against any Kubernetes cluster, and use the API and UI:
 
 ```
-kubectl apply -f https://github.com/parca-dev/parca/releases/download/$PARCA_VERSION/manifest.yaml
+kubectl apply -f https://github.com/parca-dev/parca/releases/download/$PARCA_VERSION/kubernetes-manifest.yaml
 ```{{execute}}
 
 You can verify by selecting pods if everything runs as expected:
@@ -19,13 +19,12 @@ kubectl get pods -n parca
 To view the Parca UI and access the API, we can port-forward using the default port `7070`:
 
 ```
-kubectl -n parca port-forward service/parca 7070 &
+kubectl -n parca port-forward --address=0.0.0.0 service/parca 7070:7070 > /dev/null 2>&1 &
 ```{{execute}}
 
 Once the Parca is running, and you set up the port-forwarding. Now you can navigate through to the web interface on the browser by visiting visit `http://localhost:7070`.
 
-[Parca Server](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
-
+[Go to Parca Server Dashboard](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)
 
 ## Configuring Parca Agent to send data
 
