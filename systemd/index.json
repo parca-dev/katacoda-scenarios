@@ -1,0 +1,42 @@
+{
+  "title": "Getting started with Parca and Parca Agent on Kubernetes",
+  "description": "Try Parca and Parca Agent to profile your workloads on Kubernetes",
+  "difficulty": "Beginner",
+  "time": "15 min",
+  "details": {
+    "steps": [
+      {
+        "title": "Setting up Parca",
+        "text": "step1.md"
+      },
+      {
+        "title": "Setting up Parca Agent",
+        "text": "step2.md"
+      },
+      {
+        "title": "Exploring the collected data",
+        "text": "step3.md"
+      }
+    ],
+    "intro": {
+      "courseData": "assets/env-init.sh",
+      "text": "intro.md"
+    },
+    "finish": {
+      "text": "finish.md",
+      "credits": "https://parca.dev"
+    }
+  },
+  "environment": {
+    "uieditorpath": "/root/editor",
+    "uilayout": "editor-terminal",
+      "showdashboard": true,
+      "dashboards": [
+        {"name": "Parca Agent", "port": 7071},
+        {"name": "Parca", "port": 7070}
+      ]
+    },
+  "backend": {
+    "imageid": "minikube"
+  }
+}
