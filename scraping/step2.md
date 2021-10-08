@@ -31,6 +31,12 @@ Once the configuration is updated, now we can rollout our changes to our running
 kubectl rollout restart deployment/parca -n parca
 ```{{execute}}
 
+Check and verify the rollout complete and new pods are there:
+
+```
+kubectl get pods -n parca
+```{{execute}}
+
 Now you can navigate through to the web interface on the browser by visiting visit `http://localhost:7070`.
 
 [Go to Parca Server Dashboard](https://[[HOST_SUBDOMAIN]]-7070-[[KATACODA_HOST]].environments.katacoda.com/)

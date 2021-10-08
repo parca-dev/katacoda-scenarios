@@ -37,6 +37,6 @@
       ]
     },
   "backend": {
-    "imageid": "minikube"
+    "imageid": "ubuntu:2004"
   }
 }
